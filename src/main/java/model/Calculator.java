@@ -12,6 +12,10 @@ public class Calculator {
         this.operands = builder.operands;
     }
 
+    public List<Integer> getOperands() {
+        return operands;
+    }
+
     public void addOperand(int operand) {
         this.operands.add(operand);
     }

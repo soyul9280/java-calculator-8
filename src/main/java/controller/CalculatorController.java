@@ -6,8 +6,14 @@ import view.InputView;
 
 public class CalculatorController {
 
-    public void calculate() {
+    public int calculate() {
         Calculator calculator = init();
+        List<Integer> numberList = calculator.getOperands();
+        int result = 0;
+        for (Integer operand : numberList) {
+            result = result + operand;
+        }
+        return result;
     }
 
     public Calculator init() {
