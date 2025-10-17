@@ -3,17 +3,19 @@ package controller;
 import java.util.List;
 import model.Calculator;
 import view.InputView;
+import view.OutView;
 
 public class CalculatorController {
 
-    public int calculate() {
+    public void calculate() {
         Calculator calculator = init();
         List<Integer> numberList = calculator.getOperands();
         int result = 0;
         for (Integer operand : numberList) {
             result = result + operand;
         }
-        return result;
+        OutView outView = new OutView();
+        outView.outputString(result);
     }
 
     public Calculator init() {
