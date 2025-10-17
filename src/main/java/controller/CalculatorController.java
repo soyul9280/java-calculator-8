@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.List;
 import model.Calculator;
 import view.InputView;
 
@@ -21,6 +22,10 @@ public class CalculatorController {
                 .operand(0)
                 .build();
 
+        for (String s : splitStrings) {
+            int num = Integer.parseInt(s);
+            calculator.addOperand(num);
+        }
         return calculator;
     }
 
