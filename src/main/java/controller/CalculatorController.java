@@ -35,6 +35,7 @@ public class CalculatorController {
             }
             customSeparator = inputedString.substring(2, 3);
             calculator.addSeparator(customSeparator);
+            inputedString = inputedString.substring(5);
         }
 
         inputedString = inputedString.replaceAll(":", ",");
@@ -42,6 +43,9 @@ public class CalculatorController {
         String[] splitStrings = inputedString.split(",");
 
         for (String s : splitStrings) {
+            if (calculator.getSeparators().contains(s)) {
+                continue;
+            }
             int num = Integer.parseInt(s);
             calculator.addOperand(num);
         }

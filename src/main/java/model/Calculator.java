@@ -16,6 +16,10 @@ public class Calculator {
         return operands;
     }
 
+    public List<String> getSeparators() {
+        return separators;
+    }
+
     public void addSeparator(String separator) {
         this.separators.add(separator);
     }
