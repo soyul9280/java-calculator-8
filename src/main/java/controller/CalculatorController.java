@@ -17,13 +17,11 @@ public class CalculatorController {
             }
             result = result + operand;
         }
-        OutView outView = new OutView();
-        outView.outputString(result);
+        extract(result);
     }
 
     public Calculator init() {
-        InputView view = new InputView();
-        String inputedString = view.inputString();
+        String inputedString = InputView.inputString();
         String customSeparator;
 
         Calculator calculator = new Calculator.CalculatorBuilder()
@@ -31,7 +29,7 @@ public class CalculatorController {
                 .separator(":")
                 .operand(0)
                 .build();
-        if (inputedString.equals("")) {
+        if (inputedString.isEmpty()) {
             return calculator;
         }
 
@@ -81,7 +79,7 @@ public class CalculatorController {
 
     public boolean isNumber(String startValue) {
         try {
-            if (startValue.equals("")) {
+            if (startValue.isEmpty()) {
                 return true;
             }
 
@@ -91,5 +89,10 @@ public class CalculatorController {
             return false;
         }
     }
+
+    private static void extract(int result) {
+        OutView.outputString(result);
+    }
+
 
 }

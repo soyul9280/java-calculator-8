@@ -1,10 +1,10 @@
 package view;
 
 public class OutView {
-    public OutView() {
+    private OutView() {
     }
 
-    public void outputString(int result) {
+    public static void outputString(int result) {
         System.out.println("결과 : " + result);
     }
 }
