@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.List;
 import model.Calculator;
 import view.InputView;
 import view.OutView;
@@ -9,20 +8,12 @@ public class CalculatorController {
 
     public void calculate() {
         Calculator calculator = init();
-        List<Integer> numberList = calculator.getOperands();
-        int result = 0;
-        for (Integer operand : numberList) {
-            if (operand < 0) {
-                throw new IllegalArgumentException("양의 정수만 입력 가능합니다. 잘못된 숫자: " + operand);
-            }
-            result = result + operand;
-        }
+        int result = calculator.plus();
         extract(result);
     }
 
     public Calculator init() {
         String inputedString = InputView.inputString();
-        String customSeparator;
 
         Calculator calculator = new Calculator.CalculatorBuilder()
                 .separator(",")
@@ -42,23 +33,7 @@ public class CalculatorController {
         }
 
         if (inputedString.startsWith("//")) {
-            int start = inputedString.indexOf("//");
-            int end = inputedString.indexOf("\\n");
-            customSeparator = inputedString.substring(start + 1, end);
-
-            if (customSeparator.length() > 2) {
-                throw new IllegalArgumentException(
-                        "커스텀 구분자의 길이는 1이어야합니다. 현재 구분자 길이: " + customSeparator.length());
-            }
-
-            if (!inputedString.startsWith("\\n", end)) {
-                throw new IllegalArgumentException("커스텀 구분자 지정 명령어가 잘못되었습니다.");
-            }
-
-            if (isNumber(customSeparator)) {
-                throw new IllegalArgumentException("커스텀 구분자는 숫자가 될 수 없습니다: " + customSeparator);
-            }
-
+            String customSeparator = CustomSeparatorService.getCustomSeparator(inputedString);
             calculator.addSeparator(customSeparator);
             inputedString = inputedString.substring(5);
             inputedString = inputedString.replaceAll(customSeparator, ",");
@@ -77,7 +52,12 @@ public class CalculatorController {
         return calculator;
     }
 
-    public boolean isNumber(String startValue) {
+
+    private static void extract(int result) {
+        OutView.outputString(result);
+    }
+
+    public static boolean isNumber(String startValue) {
         try {
             if (startValue.isEmpty()) {
                 return true;
@@ -89,10 +69,5 @@ public class CalculatorController {
             return false;
         }
     }
-
-    private static void extract(int result) {
-        OutView.outputString(result);
-    }
-
 
 }

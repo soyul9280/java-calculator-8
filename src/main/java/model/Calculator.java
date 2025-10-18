@@ -12,12 +12,15 @@ public class Calculator {
         this.operands = builder.operands;
     }
 
-    public List<Integer> getOperands() {
-        return operands;
-    }
-
-    public List<String> getSeparators() {
-        return separators;
+    public int plus() {
+        int result = 0;
+        for (Integer operand : operands) {
+            if (operand < 0) {
+                throw new IllegalArgumentException("양의 정수만 입력 가능합니다. 잘못된 숫자: " + operand);
+            }
+            result += operand;
+        }
+        return result;
     }
 
     public void addSeparator(String separator) {
