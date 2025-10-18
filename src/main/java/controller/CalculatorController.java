@@ -43,11 +43,10 @@ public class CalculatorController {
             }
             calculator.addSeparator(customSeparator);
             inputedString = inputedString.substring(5);
+            inputedString = inputedString.replaceAll(customSeparator, ",");
         }
 
         inputedString = inputedString.replaceAll(":", ",");
-        inputedString = inputedString.replaceAll(customSeparator, ",");
-
         String[] splitStrings = inputedString.split(",");
 
         for (String s : splitStrings) {
