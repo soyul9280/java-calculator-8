@@ -12,6 +12,9 @@ public class CalculatorController {
         List<Integer> numberList = calculator.getOperands();
         int result = 0;
         for (Integer operand : numberList) {
+            if (operand < 0) {
+                throw new IllegalArgumentException("양의 정수만 입력 가능합니다. 잘못된 숫자: " + operand);
+            }
             result = result + operand;
         }
         OutView outView = new OutView();
@@ -43,9 +46,6 @@ public class CalculatorController {
         String[] splitStrings = inputedString.split(",");
 
         for (String s : splitStrings) {
-            if (calculator.getSeparators().contains(s)) {
-                continue;
-            }
             int num = Integer.parseInt(s);
             calculator.addOperand(num);
         }
