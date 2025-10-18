@@ -24,7 +24,7 @@ public class CalculatorController {
     public Calculator init() {
         InputView view = new InputView();
         String inputedString = view.inputString();
-        String customSeparator = "";
+        String customSeparator;
 
         Calculator calculator = new Calculator.CalculatorBuilder()
                 .separator(",")
@@ -32,6 +32,9 @@ public class CalculatorController {
                 .operand(0)
                 .build();
 
+        if (!inputedString.startsWith("//") || isNumber(inputedString.substring(0, 1))) {
+            throw new IllegalArgumentException("문자열 선언이 잘못되었습니다. // 혹은 숫자로 시작 가능합니다.");
+        }
         if (inputedString.startsWith("//")) {
             if (!inputedString.startsWith("\\n", 3)) {
                 throw new IllegalArgumentException("커스텀 구분자 지정 명령어가 잘못되었습니다.");
@@ -54,6 +57,15 @@ public class CalculatorController {
             calculator.addOperand(num);
         }
         return calculator;
+    }
+
+    public boolean isNumber(String startValue) {
+        try {
+            Integer.parseInt(startValue);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 }
