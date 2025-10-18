@@ -46,6 +46,9 @@ public class CalculatorController {
             }
 
             customSeparator = inputedString.substring(2, 3);
+            if (isNumber(customSeparator)) {
+                throw new IllegalArgumentException("커스텀 구분자는 숫자가 될 수 없습니다: " + customSeparator);
+            }
 
             if (customSeparator.length() > 2) {
                 throw new IllegalArgumentException(
