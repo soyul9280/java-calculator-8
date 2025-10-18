@@ -8,20 +8,23 @@ public class CalculatorController {
 
     public void calculate() {
         Calculator calculator = init();
+        registerSeparator(calculator);
         int result = calculator.plus();
         extract(result);
     }
 
     public Calculator init() {
-        String inputedString = InputView.inputString();
-
-        Calculator calculator = new Calculator.CalculatorBuilder()
+        return new Calculator.CalculatorBuilder()
                 .separator(",")
                 .separator(":")
                 .operand(0)
                 .build();
+    }
+
+    public void registerSeparator(Calculator calculator) {
+        String inputedString = InputView.inputString();
         if (inputedString.isEmpty()) {
-            return calculator;
+            return;
         }
 
         if (isNumber(inputedString)) {
@@ -49,7 +52,6 @@ public class CalculatorController {
             int num = Integer.parseInt(s);
             calculator.addOperand(num);
         }
-        return calculator;
     }
 
 
