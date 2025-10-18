@@ -32,6 +32,9 @@ public class CalculatorController {
                 .operand(0)
                 .build();
 
+        if (isNumber(inputedString)) {
+            throw new IllegalArgumentException("구분자를 입력해주세요. 현재: " + inputedString);
+        }
         if (!inputedString.startsWith("//") || isNumber(inputedString.substring(0, 1))) {
             throw new IllegalArgumentException("문자열 선언이 잘못되었습니다. // 혹은 숫자로 시작 가능합니다.");
         }
