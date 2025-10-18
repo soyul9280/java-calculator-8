@@ -35,18 +35,23 @@ public class CalculatorController {
         if (isNumber(inputedString)) {
             throw new IllegalArgumentException("구분자를 입력해주세요. 현재: " + inputedString);
         }
-        if (!inputedString.startsWith("//") || isNumber(inputedString.substring(0, 1))) {
+
+        if (!inputedString.startsWith("//") && !isNumber(inputedString.substring(0, 1))) {
             throw new IllegalArgumentException("문자열 선언이 잘못되었습니다. // 혹은 숫자로 시작 가능합니다.");
         }
+
         if (inputedString.startsWith("//")) {
             if (!inputedString.startsWith("\\n", 3)) {
                 throw new IllegalArgumentException("커스텀 구분자 지정 명령어가 잘못되었습니다.");
             }
+
             customSeparator = inputedString.substring(2, 3);
+
             if (customSeparator.length() > 2) {
                 throw new IllegalArgumentException(
                         "커스텀 구분자의 길이는 1이어야합니다. 현재 구분자 길이: " + customSeparator.length());
             }
+
             calculator.addSeparator(customSeparator);
             inputedString = inputedString.substring(5);
             inputedString = inputedString.replaceAll(customSeparator, ",");
