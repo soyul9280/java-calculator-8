@@ -61,6 +61,9 @@ public class CalculatorController {
         String[] splitStrings = inputedString.split(",");
 
         for (String s : splitStrings) {
+            if (!isNumber(s)) {
+                throw new IllegalArgumentException("커스텀 문자열은 선언한 뒤 사용해주세요: " + s);
+            }
             int num = Integer.parseInt(s);
             calculator.addOperand(num);
         }
