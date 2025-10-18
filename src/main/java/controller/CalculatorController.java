@@ -37,12 +37,17 @@ public class CalculatorController {
                 throw new IllegalArgumentException("커스텀 구분자 지정 명령어가 잘못되었습니다.");
             }
             customSeparator = inputedString.substring(2, 3);
+            if (customSeparator.length() > 2) {
+                throw new IllegalArgumentException(
+                        "커스텀 구분자의 길이는 1이어야합니다. 현재 구분자 길이: " + customSeparator.length());
+            }
             calculator.addSeparator(customSeparator);
             inputedString = inputedString.substring(5);
         }
 
         inputedString = inputedString.replaceAll(":", ",");
         inputedString = inputedString.replaceAll(customSeparator, ",");
+
         String[] splitStrings = inputedString.split(",");
 
         for (String s : splitStrings) {
