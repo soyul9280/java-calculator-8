@@ -30,6 +30,9 @@ public class CalculatorController {
                 .build();
 
         if (inputedString.startsWith("//")) {
+            if (!inputedString.startsWith("\\n", 3)) {
+                throw new IllegalArgumentException("커스텀 구분자 지정 명령어가 잘못되었습니다.");
+            }
             customSeparator = inputedString.substring(2, 3);
             calculator.addSeparator(customSeparator);
         }
