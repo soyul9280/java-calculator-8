@@ -10,7 +10,7 @@ public class CalculatorController {
         Calculator calculator = init();
         String validatedString = registerSeparator(calculator);
         registerOperand(validatedString, calculator);
-        int result = calculator.plus();
+        long result = calculator.plus();
         extract(result);
     }
 
@@ -51,13 +51,13 @@ public class CalculatorController {
                 throw new IllegalArgumentException("커스텀 문자열은 선언한 뒤 사용해주세요: " + s);
             }
 
-            int num = Integer.parseInt(s);
+            long num = Long.parseLong(s);
             calculator.addOperand(num);
         }
     }
 
 
-    private static void extract(int result) {
+    private static void extract(long result) {
         OutView.outputString(result);
     }
 
