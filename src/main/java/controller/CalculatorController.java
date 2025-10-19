@@ -44,7 +44,7 @@ public class CalculatorController {
 
         for (String s : splitStrings) {
             if (s.isEmpty()) {
-                return;
+                continue;
             }
 
             if (!Validator.isNumber(s)) {
@@ -60,6 +60,5 @@ public class CalculatorController {
     private static void extract(long result) {
         OutView.outputString(result);
     }
-
 
 }
