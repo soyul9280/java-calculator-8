@@ -33,6 +33,22 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    void 구분자_연속_경우() {
+        assertSimpleTest(() -> {
+            run("1:2,,3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
+    @Test
+    void 구분자가_공백문자_경우() {
+        assertSimpleTest(() -> {
+            run("// \\n1 2 3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
+    @Test
     void 예외_테스트() {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("-1,2,3"))
@@ -49,11 +65,11 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 예외_구분자_연속_경우() {
-        assertSimpleTest(() -> {
-            run("1:2,,3");
-            assertThat(output()).contains("결과 : 6");
-        });
+    void 예외_중간에_공백문자_입력() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("1,2: 3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
     }
 
     @Test
