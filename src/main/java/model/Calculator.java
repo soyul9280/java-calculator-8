@@ -1,5 +1,6 @@
 package model;
 
+import controller.Validator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,14 @@ public class Calculator {
     }
 
     public void addSeparator(String separator) {
+        if (separator.length() > 2) {
+            throw new IllegalArgumentException(
+                    "커스텀 구분자의 길이는 1이어야합니다. 현재 구분자 길이: " + separator.length());
+        }
+
+        if (Validator.isNumber(separator)) {
+            throw new IllegalArgumentException("커스텀 구분자는 숫자가 될 수 없습니다: " + separator);
+        }
         this.separators.add(separator);
     }
 

@@ -8,7 +8,8 @@ public class CalculatorController {
 
     public void calculate() {
         Calculator calculator = init();
-        registerSeparator(calculator);
+        String validatedString = registerSeparator(calculator);
+        registerOperand(validatedString, calculator);
         int result = calculator.plus();
         extract(result);
     }
@@ -21,34 +22,35 @@ public class CalculatorController {
                 .build();
     }
 
-    public void registerSeparator(Calculator calculator) {
+    public String registerSeparator(Calculator calculator) {
         String inputedString = InputView.inputString();
-        if (inputedString.isEmpty()) {
-            return;
-        }
 
-        if (isNumber(inputedString)) {
-            throw new IllegalArgumentException("구분자를 입력해주세요. 현재: " + inputedString);
-        }
+        String validatedString = Validator.validate(inputedString);
 
-        if (!inputedString.startsWith("//") && !isNumber(inputedString.substring(0, 1))) {
-            throw new IllegalArgumentException("문자열 선언이 잘못되었습니다. // 혹은 숫자로 시작 가능합니다. " + inputedString);
-        }
-
-        if (inputedString.startsWith("//")) {
-            String customSeparator = CustomSeparatorService.getCustomSeparator(inputedString);
+        if (validatedString.startsWith("//")) {
+            String customSeparator = CustomSeparatorService.getCustomSeparator(validatedString);
             calculator.addSeparator(customSeparator);
-            inputedString = inputedString.substring(5);
-            inputedString = inputedString.replaceAll(customSeparator, ",");
+            validatedString = validatedString.substring(5);
+            validatedString = validatedString.replaceAll(customSeparator, ",");
         }
 
-        inputedString = inputedString.replaceAll(":", ",");
-        String[] splitStrings = inputedString.split(",");
+        return validatedString;
+    }
+
+    public void registerOperand(String validatedString, Calculator calculator) {
+
+        validatedString = validatedString.replaceAll(":", ",");
+        String[] splitStrings = validatedString.split(",");
 
         for (String s : splitStrings) {
-            if (!isNumber(s)) {
+            if (s.isEmpty()) {
+                return;
+            }
+
+            if (!Validator.isNumber(s)) {
                 throw new IllegalArgumentException("커스텀 문자열은 선언한 뒤 사용해주세요: " + s);
             }
+
             int num = Integer.parseInt(s);
             calculator.addOperand(num);
         }
@@ -59,17 +61,5 @@ public class CalculatorController {
         OutView.outputString(result);
     }
 
-    public static boolean isNumber(String startValue) {
-        try {
-            if (startValue.isEmpty()) {
-                return true;
-            }
-
-            Integer.parseInt(startValue);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 
 }
