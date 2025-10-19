@@ -10,6 +10,10 @@ public class Validator {
             return "";
         }
 
+        if (inputedString.length() <= 2) {
+            throw new IllegalArgumentException("0이 아닌 계산 요소 개수는 최소 3입니다.");
+        }
+
         if (isNumber(inputedString)) {
             throw new IllegalArgumentException("구분자를 입력해주세요. 현재: " + inputedString);
         }
