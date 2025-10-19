@@ -81,6 +81,14 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    void 예외_커스텀_선언_잘못된_끝() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//t//1,2t3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
     void 예외_커스텀_잘못된_시작() {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("/t\\n1:2t3"))
