@@ -37,6 +37,9 @@ public class Calculator {
     }
 
     public void addOperand(long operand) {
+        if (operand < 0) {
+            throw new IllegalArgumentException("양의 정수만 가능합니다. 현재: " + operand);
+        }
         this.operands.add(operand);
     }
 

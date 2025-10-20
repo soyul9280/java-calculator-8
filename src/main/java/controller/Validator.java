@@ -30,7 +30,7 @@ public class Validator {
 
     public static boolean isNumber(String startValue) {
         try {
-            Integer.parseInt(startValue);
+            Long.parseLong(startValue);
             return true;
         } catch (NumberFormatException e) {
             return false;
