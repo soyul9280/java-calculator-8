@@ -16,8 +16,6 @@ public class CalculatorController {
 
     public Calculator init() {
         return new Calculator.CalculatorBuilder()
-                .separator(",")
-                .separator(":")
                 .operand(0)
                 .build();
     }
